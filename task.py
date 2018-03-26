@@ -17,7 +17,7 @@ for i in range(min(students_count, 3)):
     top3.append(students_profile[i][0])
 print('Top-3 students are:', end=' ')
 for name in top3:
-    print(name, end=' ')
+    print(name, end=', ')
 print()
 problems_rating = []
 for i in range(problems_count):
@@ -37,7 +37,7 @@ for i in range(min(problems_count, 3)):
     top3.append(problems_rating[i][0])
 print('Top-3 hardest problems are:', end=' ')
 for problem in top3:
-    print(problem, end=' ')
+    print(problem, end=', ')
 print()
 
 
