@@ -12,7 +12,10 @@ for i in range(students_count - 1):
             temp = students_profile[i]
             students_profile[i] = students_profile[j]
             students_profile[j] = temp
-print('Top-3 students are: {}, {}, {}'.format(students_profile[0][0], students_profile[1][0], students_profile[2][0]))
+top3 = []
+for i in range(min(students_count, 3)):
+    top3.append(students_profile[i][0])
+print('Top-3 students are: {}'.format(str(top3)))
 problems_rating = []
 for i in range(problems_count):
     problems_rating.append([i])
@@ -26,5 +29,8 @@ for i in range(problems_count - 1):
             temp = problems_rating[i]
             problems_rating[i] = problems_rating[j]
             problems_rating[j] = temp
-print('Top-3 hardest problems are: {}, {}, {}'.format(problems_rating[0][0], problems_rating[1][0], problems_rating[2][0]))
+top3 = []
+for i in range(min(problems_count, 3)):
+    top3.append(problems_rating[i][0])
+print('Top-3 hardest problems are: {}'.format(str(top3)))
 
