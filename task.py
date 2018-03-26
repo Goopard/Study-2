@@ -5,7 +5,12 @@ for i in range(students_count):
     students_profile.append([input('Please enter the name of student #{}: '.format(i)), []])
 for i in range(students_count):
     for j in range(problems_count):
-        students_profile[i][1].append(int(input('Please enter {}\'s result for problem #{}: '.format(students_profile[i][0], j))))
+        mark = int(input('Please enter {}\'s result for problem #{}: '.format(students_profile[i][0], j)))
+        if (mark >= 0) & (mark <= 10):
+            students_profile[i][1].append(mark)
+        else:
+            print('Incorrect input!')
+            exit(0)
 for i in range(students_count - 1):
     for j in range(i + 1, students_count):
         if sum(students_profile[i][1]) < sum(students_profile[j][1]):
