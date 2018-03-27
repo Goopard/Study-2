@@ -2,7 +2,7 @@ x = int(input('Please enter the first number: '))
 y = int(input('Please enter the second number: '))
 a = abs(x)
 b = abs(y)
-if (x == 0) & (y == 0):
+if x == 0 and y == 0:
     print('The greatest common divisor of 0 and 0 is undefined!')
     exit(0)
 while a != b and a * b != 0:
