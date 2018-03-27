@@ -12,11 +12,14 @@ def add(person: str, number: int):
     """
     global phone_book
     if person in phone_book:
-        phone_book[person].append(number)
-        print('The new number {} for {} has been successfully added to your phone book!'.format(number, person))
+        if number in phone_book[person]:
+            print('{} already has the phone number {}.'.format(person, number))
+        else:
+            phone_book[person].append(number)
+            print('The new phone number {} for {} has been successfully added to your phone book!'.format(number, person))
     else:
         phone_book[person] = [number]
-        print('{} with the number {} has been successfully added to your phone book!'.format(person, number))
+        print('{} with the phone number {} has been successfully added to your phone book!'.format(person, number))
 
 
 def show_numbers(person: str):
@@ -83,7 +86,7 @@ print('Hello! This is your personal phone book. You can use it to store your con
       '- Print "Delete *NAME*" to delete a contact (including all of its phone numbers). Print the name of the contact '
       'you wish to delete instead of *NAME*.\n'
       '- Print "Show *NAME*" to show all the numbers of the contact with the name *NAME*.\n'
-      '- If you wish to terminate this session, print "Exit".')
+      '- If you wish to terminate this session, print "Exit".\n')
 while True:
     command = str(input('>>>'))
     todo = parse_command(command)
