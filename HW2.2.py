@@ -6,7 +6,7 @@ def select(*field_name: str):
     :type field_name: str.
     :returns function.
     """
-    def inner(table: list) -> list:
+    def selection(table: list) -> list:
         """This functions creates the selection from the table.
 
         :param table: Original table.
@@ -21,7 +21,7 @@ def select(*field_name: str):
                     res_line[colon] = line[colon]
             res_table.append(res_line)
         return res_table
-    return inner
+    return selection
 
 
 def field_filter(field_name: str, possible_values: list):
@@ -34,7 +34,7 @@ def field_filter(field_name: str, possible_values: list):
     :type possible_values: list
     :returns function.
     """
-    def inner(table: list) -> list:
+    def field_filterer(table: list) -> list:
         """This functions creates the filtered version of the table.
 
         :param table: Original table.
@@ -46,23 +46,23 @@ def field_filter(field_name: str, possible_values: list):
             if line[field_name] in possible_values:
                 res_table.append(line)
         return res_table
-    return inner
+    return field_filterer
 
 
-def query(table: list, selection, *field_filters) -> list:
+def query(table: list, selection, *field_filterers) -> list:
     """This function embodies the query to the table, which returns filtered selection from the table.
 
     :param table: Original table.
     :type table: list.
     :param selection: Function which creates the selection from the table.
     :type selection: function.
-    :param field_filters: Functions that filter the table.
-    :type field_filters: function.
+    :param field_filterers: Functions that filter the table.
+    :type field_filterers: function.
     :returns list.
     """
     res_table = table
     res_table = selection(res_table)
-    for func in field_filters:
+    for func in field_filterers:
         res_table = func(res_table)
     return res_table
 
