@@ -1,6 +1,3 @@
-phone_book = {}
-
-
 def add(person: str, number: int):
     """This function adds a new contact to the phone book.
 
@@ -87,6 +84,7 @@ print('Hello! This is your personal phone book. You can use it to store your con
       'you wish to delete instead of *NAME*.\n'
       '- Print "Show *NAME*" to show all the numbers of the contact with the name *NAME*.\n'
       '- If you wish to terminate this session, print "Exit".\n')
+phone_book = {}
 while True:
     command = str(input('>>>'))
     todo = parse_command(command)
