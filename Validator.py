@@ -7,7 +7,11 @@ def validate(lower_bound=None, upper_bound=None, size=None):
     size (if it is defined).
 
     :param lower_bound: The lowest possible value of the argument.
+    :type lower_bound: int or None
     :param upper_bound: The highest possible value of the argument.
+    :type upper_bound: int or None
+    :param size: The expected number of arguments.
+    :type size: int or None
     :return: function or None: The original function if the arguments are valid and None otherwise.
     """
     def decorator(func):
