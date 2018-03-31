@@ -20,13 +20,15 @@ def intersect(*args) -> list:
     :type args: str or list.
     :returns list -- The required intersection.
     """
-    res = union(*args)
-    for elem in res:
-        for arg in args:
+    res = list(set(args[0]))
+    for arg in args:
+        temp = res.copy()
+        for elem in res:
             if elem not in arg:
-                res.remove(elem)
+                temp.remove(elem)
+        res = temp
     return res
 
 
-print(union('abce', ['a', 'b', 'c', 'd']))
-print(intersect(['a', 'b', 'c', 'd'], 'abacaba'))
+print(intersect("dashfkjsahfe", 'abacaba', "fwhahsiuhfdsa"))
+#print(union("dashfkjsahfe", 'abacaba', "fwhahsiuhfdsa"))
