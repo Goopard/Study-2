@@ -11,6 +11,7 @@ def validate(lower_bound=None, upper_bound=None, size=None):
     :return: function or None: The original function if the arguments are valid and None otherwise.
     """
     def decorator(func):
+        @functools.wraps(func)
         def inner(*args):
             for arg in args:
                 too_small = True if lower_bound is not None and arg < lower_bound else False
