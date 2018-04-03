@@ -31,7 +31,8 @@ def fabric(some_lambda):
     fabric.off = decorator_switch_off
     fabric.on = decorator_switch_on
 
-    # Deco will be the modified version of our decorated decorator.
+    # decorator will be the modified version of our decorated decorator deco.
+    
     def decorator(deco):
         def inner(*dargs, **dkwargs):
 
