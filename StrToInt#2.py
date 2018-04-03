@@ -20,6 +20,8 @@ def str_to_int(s: str) -> int:
         return res
     if len(s) == 1:
         return ord(s[0])
+    elif len(s) == 0:
+        return 0
     else:
         add = ord(s[len(s) - 1])
         int_s = str_to_int(s[:len(s) - 1]) * (10 ** len_of_int(add)) + add
