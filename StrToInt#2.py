@@ -12,12 +12,12 @@ def str_to_int(s: str) -> int:
         :type n: int.
         :returns int.
         """
-        temp = n
-        res = 0
-        while temp > 0:
-            res += 1
-            temp = temp // 10
-        return res
+        n_copy = n
+        result = 0
+        while n_copy > 0:
+            result += 1
+            n_copy = n_copy // 10
+        return result
     if len(s) == 1:
         return ord(s[0])
     elif len(s) == 0:
@@ -28,5 +28,5 @@ def str_to_int(s: str) -> int:
         return int_s
 
 
-a = 'abcdefghABC'
+a = 'adskdnladnlakndakldnalskdnaklsndakndlkansdlkanalsk'
 print(str_to_int(a))
