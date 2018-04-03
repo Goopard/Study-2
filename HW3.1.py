@@ -32,11 +32,10 @@ def fabric(some_lambda):
     fabric.on = decorator_switch_on
 
     # Deco will be the modified version of our decorated decorator.
-    @functoos.wraps(deco)
     def decorator(deco):
         def inner(*dargs, **dkwargs):
 
-            # After this point we have two choices: either the decorated decorator deco takes any arguments, or not. If
+            # After this point we have two choices: either the decorated decorator deco takes some arguments, or not. If
             # it does not, than the condition in the lower "if" is true (**dkwargs is empty and the only element of
             # *dargs is the function, which is decorated by deco). And if deco does take arguments (and if it doesn't
             # take only one argument which is function - this case is unsupported by fabric) this condition is false.
@@ -133,7 +132,7 @@ def not_very_useful_decorator(func):
     return inner
 
 
-@repeat(0)
+@repeat(1)
 def foo(*args, **kwargs):
     """Some function.
 
