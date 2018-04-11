@@ -1,12 +1,12 @@
 class Matrix:
     """This class embodies a matrix. To create a matrix, you can use one of these options:
-    1) Matrix(*lines), where lines is a list of lines of the matrix (which are lists of ints) i.eg:
-        >>>Matrix([1, 2], [3, 4])
+    1) Matrix(lines), where lines is a list of lines of the matrix (which are lists of ints) i.eg:
+        >>>Matrix([[1, 2], [3, 4]])
         [1, 2]
         [3, 4]
-        Notice that if lines in *lines are not equal in length, the width of matrix will be the length of the longest
+        Notice that if lines in lines are not equal in length, the width of matrix will be the length of the longest
         line, and all undefined missing elements of the matrix will be initialized with zeros i.eg:
-        >>>Matrix([1, 2], [3])
+        >>>Matrix([[1, 2], [3]])
         [1, 2]
         [3, 0]
     2) Matrix(N, M), where N and M are positive integers will create a NxM matrix with random elements with values from
@@ -25,20 +25,22 @@ class Matrix:
     3) '+' to find the sum of two matrices.
     4) '-' to find the difference between two matrices.
     5) '*' to multiply a matrix on an integer number or another matrix i.eg.:
-        >>>M = Matrix([1, 1], [1, 1])
+        >>>M = Matrix([[1, 1], [1, 1]])
         >>>M * 2
         [2, 2]
         [2, 2]
-        >>>N = Matrix([2, 2], [2, 2])
+        >>>N = Matrix([[2, 2], [2, 2]])
         >>M * N
         [4, 4]
         [4, 4]
     """
-    def __init__(self, *lines, empty=False):
+    def __init__(self, lines: list, width=None, empty=False):
         """This is a constructor of class Matrix.
 
-        :param lines: Either lines of matrix or its height and width.
-        :type lines: list of lists of ints or list of two ints.
+        :param lines: Either list of lines of matrix or its height.
+        :type lines: list of lists of ints or int.
+        :param: width: Either None if lines = list of lines of matrix or width of matrix.
+        :type width: int.
         :param empty: If lines contains only height and width of the matrix, this argument will define whether random or
         zero matrix will be created.
         :type empty: bool.
@@ -46,14 +48,14 @@ class Matrix:
 
         # First we check if we are given only the size (height and width, both positive ints) of matrix or not.
 
-        if len(lines) == 2 and isinstance(lines[0], int) and isinstance(lines[1], int) and lines[0] > 0 and lines[1] > 0:
-            self.height = lines[0]
-            self.width = lines[1]
+        if isinstance(lines, int) and width is not None:
+            self.height = lines
+            self.width = width
             import random
             random.seed()
             self.__lines = [[random.randint(0, 9) if not empty else 0 for i in range(self.width)]
                             for j in range(self.height)]
-        else:
+        elif isinstance(lines, list) and width is None:
 
             # If not, than we have to check if our lines are correct. If not, we raise some exceptions.
 
@@ -77,6 +79,8 @@ class Matrix:
                 if len(line) < self.width:
                     for i in range(self.width - len(line)):
                         line.append(0)
+        else:
+            raise ValueError('incorrect initialisation of an instance of class Matrix')
 
     def __getitem__(self, index: int) -> list:
         """This method allows us to use operator [] for our matrix by accessing its lines.
@@ -202,13 +206,17 @@ class Matrix:
         :return: Matrix.
         """
         transposed_lines = [[lines[i] for lines in self.__lines] for i in range(self.width)]
-        return Matrix(*transposed_lines)
+        return Matrix(transposed_lines)
 
 
-m = Matrix([1, 2, 3], [4, 5, 6], [7, 8, 9])
-n = Matrix([1, 1, 1], [2, 2, 2])
-print(m.transposed())
+m = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+print(m)
+n = Matrix([[1, 1, 1], [1, 1, 1]])
+print(n)
+print(n + m)
 print(n * m)
 n = Matrix(4, 4)
 print(n)
-print(help(Matrix))
+print(n.transposed())
+print(n.is_square())
+print(n.is_symmetrical())
