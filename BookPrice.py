@@ -1,3 +1,6 @@
+#!/usr/bin/env python3.6.4
+
+
 class Price:
     """This is a descriptor class for some owner class. It checks the value of some attribute of the owner class for
     being more than 0 and less then 100."""
@@ -54,3 +57,11 @@ class Book:
         self.name = name
         self.author = author
         self.price = price
+
+
+if __name__ == '__main__':
+    b = Book('a', 'b', 10)
+    c = Book('a', 'b', 11)
+    print(b.price, c.price)
+    b.price = 42
+    print(c.price)
