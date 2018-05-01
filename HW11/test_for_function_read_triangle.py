@@ -1,14 +1,17 @@
 """
-This is a unittest test suite for the function read_triangle from the module square_counter.
+This is a unittest test suite for the function read_triangle from the module area_counter.
 """
 
 import unittest
 
-from square_counter import read_triangle
+from area_counter import read_triangle
 from io_redirect import StdInRedirector
 
 
 class Tests(unittest.TestCase):
+    """
+    This test case contents the tests for the function read_triangle from module area_counter.
+    """
     def test_entered_from_the_first_try(self):
         """
         This test checks if the function read_triangle works correctly with some correct input.

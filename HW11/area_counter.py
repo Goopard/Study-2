@@ -1,3 +1,13 @@
+"""
+This module contains the functions for counting the are of triangle.
+"""
+
+# Комментарий по поводу того, что все функции у меня принимают *args: ты на лекции говорил, что надо исходить из того,
+# что пользователь совсем не соображает, поэтому я предположил, что он мог бы ввести какое-то неправильное количество
+# аргументов => он в таком случае должен получать не эксепшн с трейсбеком, а такую же текстовую ошибку, как и в других
+# случаях. Поэтому тут так.
+
+
 def distance(*args):
     """This function counts the distance between two dots given as lists of two coordinates each.
 
@@ -44,32 +54,32 @@ def distance(*args):
     return ((dot1[0] - dot2[0]) ** 2 + (dot1[1] - dot2[1]) ** 2) ** 0.5
 
 
-def square_of_triangle(*args):
+def area_of_triangle(*args):
     """This function counts the square of a triangle given as a list of 6 numbers - the coordinates of the vertexes.
 
     Tests:
     Positive ones:
-    >>> square_of_triangle([0, 0, 1, 1, 0, 1])
+    >>> area_of_triangle([0, 0, 1, 1, 0, 1])
     0.4999999999999998
-    >>> square_of_triangle([1, 1, -1, -1, 0, 0])
+    >>> area_of_triangle([1, 1, -1, -1, 0, 0])
     0.0
-    >>> square_of_triangle([0, 0, 0, 0, 0, 0])
+    >>> area_of_triangle([0, 0, 0, 0, 0, 0])
     0.0
-    >>> square_of_triangle([1, 1, -1, -1, 1, -1])
+    >>> area_of_triangle([1, 1, -1, -1, 1, -1])
     1.9999999999999991
 
     Negative ones:
-    >>> square_of_triangle([0, 0])
+    >>> area_of_triangle([0, 0])
     ERROR: 6 coordinates expected, got 2.
-    >>> square_of_triangle([0, 0, 1, 2, 0, 'a'])
+    >>> area_of_triangle([0, 0, 1, 2, 0, 'a'])
     ERROR: type int or float expected, got <class 'str'>.
-    >>> square_of_triangle('a')
+    >>> area_of_triangle('a')
     ERROR: list of vertexes expected as an argument, got <class 'str'>.
-    >>> square_of_triangle([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+    >>> area_of_triangle([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
     ERROR: 6 coordinates expected, got 10.
-    >>> square_of_triangle()
+    >>> area_of_triangle()
     ERROR: one argument expected, got 0.
-    >>> square_of_triangle([1, 2, 3, 4, 5, 6], 'DFSFsfASFf')
+    >>> area_of_triangle([1, 2, 3, 4, 5, 6], 'DFSFsfASFf')
     ERROR: one argument expected, got 2.
 
     :param vertexes: List of vertexes.
