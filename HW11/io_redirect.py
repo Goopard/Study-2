@@ -15,11 +15,10 @@ class StdInRedirector:
         self.args = args
 
     def __enter__(self):
-        self.old_stdin = sys.stdin
         sys.stdin = io.StringIO(self.args)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        sys.stdin = self.old_stdin
+        sys.stdin = sys.__stdin__
 
 
 class StdOutRedirector:
@@ -28,8 +27,8 @@ class StdOutRedirector:
     object.
     """
     def __enter__(self):
-        self.old_stdout = sys.stdout
+        # self.old_stdout = sys.stdout
         sys.stdout = io.StringIO()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        sys.stdout = self.old_stdout
+        sys.stdout = sys.__stdout__

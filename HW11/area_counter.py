@@ -113,10 +113,10 @@ def read_triangle():
 
     :return: list of float -- List of the coordinates of the vertexes of the triangle.
     """
-    i = 0
     vertexes = []
-    while i < 3:
-        new_vertex = input('Please enter the coordinates of the vertex #{}: '.format(i)).split(sep=' ')
+    while len(vertexes) < 6:
+        new_vertex = input('Please enter the coordinates of the vertex #{}: '
+                           .format(int(len(vertexes) / 2 + 1))).split(sep=' ')
         if len(new_vertex) != 2:
             print('ERROR: vertex of the triangle should have exactly 2 coordinates!\nTry again.')
         else:
@@ -127,11 +127,11 @@ def read_triangle():
                 print('ERROR: coordinates of the vertex of the triangle should be of type int or float!\nTry again:')
             else:
                 vertexes += new_vertex
-                i += 1
     return vertexes
 
 
 if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
+    print('Area of the triangle is: {}'.format(area_of_triangle(read_triangle())))
+    # import doctest
+    # doctest.testmod()
 
