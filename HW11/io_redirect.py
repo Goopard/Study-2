@@ -27,7 +27,6 @@ class StdOutRedirector:
     object.
     """
     def __enter__(self):
-        # self.old_stdout = sys.stdout
         sys.stdout = io.StringIO()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
