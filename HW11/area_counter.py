@@ -82,8 +82,8 @@ def area_of_triangle(*args):
     >>> area_of_triangle([1, 2, 3, 4, 5, 6], 'DFSFsfASFf')
     ERROR: one argument expected, got 2.
 
-    :param vertexes: List of vertexes.
-    :type vertexes: list(float or int): List of 6 elements of type int or float - the coordinates of the vertexes.
+    :param args: Expected to be a tuple of one object: list of vertexes.
+    :type args: tuple.
     :return: float -- Square of the triangle.
     """
     if len(args) != 1:
