@@ -1,0 +1,17 @@
+from supertool.weather import get_weather, get_five_days_forecast
+import argparse
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Find similar files')
+
+    parser.add_argument('city', type=str)
+    parser.add_argument('country_id', type=str)
+    parser.add_argument('--appid', type=str, default="b4a9d8e16b916107e741f1e84440c660")
+
+    args = parser.parse_args()
+
+    forecast = get_five_days_forecast(args.city, args.country_id, args.appid)
+    for time in forecast:
+        print(time)
+

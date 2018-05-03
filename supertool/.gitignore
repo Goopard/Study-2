@@ -1,0 +1,4 @@
+venv
+src/supertool_distro.egg-info
+src/tests/TEST_FILES
+src/__pycache__

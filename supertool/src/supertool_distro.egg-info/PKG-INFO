@@ -1,0 +1,12 @@
+Metadata-Version: 1.1
+Name: supertool-distro
+Version: 0.1
+Summary: Super-super tool
+Home-page: UNKNOWN
+Author: Nikolay Amirkhanov
+Author-email: nick.amirkhanov@gmail.com
+License: MIT
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Topic :: Education
+Classifier: Programming Language :: Python :: 3.6
