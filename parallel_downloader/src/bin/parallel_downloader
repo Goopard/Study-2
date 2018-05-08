@@ -1,0 +1,17 @@
+"""
+This script is used to download images from some file with the urls of those images and format them in parallel.
+"""
+
+from downloader.parallel import download_from_file
+import argparse
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='downloads images from the urls listed in some text file and formats '
+                                                 'them')
+    parser.add_argument('url_file', type=str, help='target file with urls')
+    parser.add_argument('--target_dir', help='downloading directory')
+    parser.add_argument('--threads', help='number of threads')
+    parser.add_argument('--size', help='size of the formatted image')
+    args = parser.parse_args()
+    download_from_file(args.url_file, args.target_dir, args.threads, args.size)
