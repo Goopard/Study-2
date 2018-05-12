@@ -1,17 +1,21 @@
-from supertool.weather import get_weather, get_five_days_forecast
+"""
+This is a script used to get the current weather or a 5-day weather forecast for some address.
+"""
+
+from supertool.weather import print_weather, print_forecast
 import argparse
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Find similar files')
 
-    parser.add_argument('city', type=str)
-    parser.add_argument('country_id', type=str)
-    parser.add_argument('--appid', type=str, default="b4a9d8e16b916107e741f1e84440c660")
+    parser.add_argument('address', type=str, help='Address', nargs='*')
+    parser.add_argument('--appid', type=str, default="fae8fb5c89bba98d73b24e12cb1c2eae", help='APPID')
+    parser.add_argument('--forecast', action='store_true', help='Use this argument if you want to get 5-day forecast')
 
     args = parser.parse_args()
 
-    forecast = get_five_days_forecast(args.city, args.country_id, args.appid)
-    for time in forecast:
-        print(time)
-
+    if args.forecast:
+        print_forecast(args.address, args.appid)
+    else:
+        print_weather(args.address, args.appid)
