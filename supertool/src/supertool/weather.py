@@ -22,38 +22,48 @@ def get_coordinates(address):
         lon = data[0]['lon']
     except IndexError:
         print('Wrong address!')
-        sys.exit()
+        return None
     return lat, lon
 
 
-def get_weather(address, appid):
+def get_weather(url, address, appid):
     """This function finds out the current weather for some given address using openweather.org API.
 
+    :param url: Url the request will be made to.
+    :type url: str.
     :param address: Address.
     :type address: list.
     :param appid: APPID used by the openweathermap.org API.
     :type appid: str.
     :return: list -- the required weather data.
     """
-    lat, lon = get_coordinates(address)
-    url = 'http://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}'.format(lat, lon, appid)
-    response = requests.get(url)
+    try:
+        lat, lon = get_coordinates(address)
+    except TypeError:
+        return None
+    query_string = {'lat': lat, 'lon': lon, 'appid': appid}
+    response = requests.get(url, params=query_string)
     data = response.json()
     return data
 
 
-def get_five_day_forecast(address, appid):
+def get_five_day_forecast(url, address, appid):
     """This function finds out the 5-day weather forecast for some given address using openweather.org API.
 
+    :param url: Url the request will be made to.
+    :type url: str.
     :param address: Address.
     :type address: list.
     :param appid: APPID used by the openweathermap.org API.
     :type appid: str.
     :return: dict -- the required weather data.
     """
-    lat, lon = get_coordinates(address)
-    url = 'http://api.openweathermap.org/data/2.5/forecast?lat={}&lon={}&appid={}'.format(lat, lon, appid)
-    response = requests.get(url)
+    try:
+        lat, lon = get_coordinates(address)
+    except TypeError:
+        return None
+    query_string = {'lat': lat, 'lon': lon, 'appid': appid}
+    response = requests.get(url, params=query_string)
     data = response.json()['list']
     forecast = {time['dt_txt']: [time['weather'][0]['description'],
                                  round(time['main']['temp'] - 274),
@@ -63,15 +73,19 @@ def get_five_day_forecast(address, appid):
     return forecast
 
 
-def print_weather(address, appid):
+def print_weather(url, address, appid):
     """This function prints the data returned by the function get_weather in a nice way.
 
+    :url: Url the request will be made to.
+    :type url: str.
     :param address: Address.
     :type address: list.
     :param appid: APPID used by the openweathermap.org API.
     :type appid: str.
     """
-    weather = get_weather(address, appid)
+    weather = get_weather(url, address, appid)
+    if not weather:
+        return None
     address_str = ''
     for comp in address:
         address_str += comp + ' '
@@ -99,29 +113,33 @@ def normalized(value, length):
     return res
 
 
-def print_forecast(address, appid):
+def print_forecast(url, address, appid):
     """This function prints the data returned by the function get_five_day_forecast in a nice way (as a table).
 
+    :param url: Url the request will be made to.
+    :type url: str.
     :param address: Address.
     :type address: list.
     :param appid: APPID used by the openweathermap.org API.
     :type appid: str.
     """
-    forecast = get_five_day_forecast(address, appid)
+    forecast = get_five_day_forecast(url, address, appid)
+    if not forecast:
+        return None
     address_str = ''
     for comp in address:
         address_str += comp + ' '
     print('5-day forecast for {}:'.format(address_str))
     print(normalized('   Date and time', 20),
-          normalized('   Sky', 10),
+          normalized('   Sky', 20),
           normalized('Temperature', 12),
           normalized('Pressure', 10),
           normalized('Humidity', 10),
-          normalized('Wind speed', 15))
+          'Wind speed', 15)
     for time in forecast:
         print(normalized(time, 20),
-              normalized(forecast[time][0], 10),
+              normalized(forecast[time][0], 20),
               normalized('   ' + str(forecast[time][1]) + '°C', 12),
               normalized(str(forecast[time][2]) + ' mm Hg', 10),
               normalized('  ' + str(forecast[time][3]) + '%', 10),
-              normalized(' ' + str(forecast[time][4]) + ' m/s', 15))
+              ' ' + str(forecast[time][4]) + ' m/s')

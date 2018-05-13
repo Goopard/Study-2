@@ -16,6 +16,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.forecast:
-        print_forecast(args.address, args.appid)
+        url = 'http://api.openweathermap.org/data/2.5/forecast'
+        print_forecast(url, args.address, args.appid)
     else:
-        print_weather(args.address, args.appid)
+        url = 'http://api.openweathermap.org/data/2.5/weather'
+        print_weather(url, args.address, args.appid)
