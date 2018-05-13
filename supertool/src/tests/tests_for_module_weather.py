@@ -10,7 +10,14 @@ from supertool.weather import print_weather, print_forecast
 
 
 class PositiveTests(unittest.TestCase):
+    """
+    This test case contains positive tests for the functions print_weather and print_forecast from the module weather.
+    """
     def test_current_weather(self):
+        """
+        This test checks if function print_weather prints the correct information (called for the openweathermap
+        sample).
+        """
         with StdOutRedirector():
             print_weather('http://samples.openweathermap.org/data/2.5/weather', ['London'],
                           'fae8fb5c89bba98d73b24e12cb1c2eae')
@@ -20,12 +27,16 @@ class PositiveTests(unittest.TestCase):
             self.assertEqual(response, correct_response)
 
     def test_five_day_forecast(self):
+        """
+        This test checks if function print_forecast prints the correct information (called for the openweathermap
+        sample).
+        """
         with StdOutRedirector():
             print_forecast('http://samples.openweathermap.org/data/2.5/forecast', ['London'],
                            'fae8fb5c89bba98d73b24e12cb1c2eae')
             response = sys.stdout.getvalue()
             correct_response = '5-day forecast for London :\n' \
-                               '   Date and time        Sky               Temperature  Pressure   Humidity   Wind speed 15\n' \
+                               '   Date and time        Sky               Temperature  Pressure   Humidity   Wind speed\n' \
                                '2017-01-30 18:00:00  clear sky               10°C      763 mm Hg    100%      7.27 m/s\n' \
                                '2017-01-30 21:00:00  clear sky               9°C       765 mm Hg    100%      6.21 m/s\n' \
                                '2017-01-31 00:00:00  clear sky               8°C       767 mm Hg    100%      6.71 m/s\n' \
@@ -71,6 +82,9 @@ class PositiveTests(unittest.TestCase):
 
 class NegativeTests(unittest.TestCase):
     def test_wrong_address_in_weather(self):
+        """
+        This test checks if the function print_weather deals correctly with the wrong address.
+        """
         with StdOutRedirector():
             print_forecast('http://samples.openweathermap.org/data/2.5/weather', ['JKIDJBFHJsbafhjdsbdfjhBhbdhs'],
                            'fae8fb5c89bba98d73b24e12cb1c2eae')
@@ -78,6 +92,9 @@ class NegativeTests(unittest.TestCase):
             self.assertEqual(response, 'Wrong address!\n')
 
     def test_wrong_address_in_forecast(self):
+        """
+        This function checks if the function print_forecast deals correctly with the wrong address.
+        """
         with StdOutRedirector():
             print_forecast('http://samples.openweathermap.org/data/2.5/forecast', ['JKIDJBFHJsbafhjdsbdfjhBhbdhs'],
                            'fae8fb5c89bba98d73b24e12cb1c2eae')

@@ -135,7 +135,7 @@ def print_forecast(url, address, appid):
           normalized('Temperature', 12),
           normalized('Pressure', 10),
           normalized('Humidity', 10),
-          'Wind speed', 15)
+          'Wind speed')
     for time in forecast:
         print(normalized(time, 20),
               normalized(forecast[time][0], 20),
