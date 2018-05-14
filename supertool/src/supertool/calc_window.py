@@ -68,7 +68,6 @@ class MainApplication(QtWidgets.QMainWindow):
         else:
             self.ui.lcd.display(number)
             self.printing_second_arg = False
-        self.number_string += str(number)
 
     def clear_pressed(self):
         """
