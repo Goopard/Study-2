@@ -41,19 +41,16 @@ def is_similar(path1, path2):
             return contents1 == contents2
 
 
-def similar_files_finder(directory):
-    """This function finds all the chains of similar files in the given directory and prints them.
+def similar_files_chains(directory):
+    """This function finds all the chains of similar files in the given directory.
 
     :param directory: Path to the directory.
     :type directory: str.
-    :return: None.
+    :return: list[list] -- List of the required file chains given as lists.
     """
     directory = os.path.abspath(directory)
-    print('Looking for similar files in directory: {}'.format(directory))
-
     if not os.path.exists(directory):
         raise ValueError('such directory does not exist.')
-
     files = files_finder(directory)
     buffer = []
     for file in files:
@@ -64,7 +61,18 @@ def similar_files_finder(directory):
         else:
             buffer.append([file])
     file_chains = [chain for chain in buffer if len(chain) > 1]
+    return file_chains
 
+
+def similar_files_finder(directory):
+    """This function finds all the chains of similar files in the given directory and prints them.
+
+    :param directory: Path to the directory.
+    :type directory: str.
+    :return: None.
+    """
+    print('Looking for similar files in directory: {}'.format(directory))
+    file_chains = similar_files_chains(directory)
     if not len(file_chains):
         print('No similar files found.')
     for chain in file_chains:
