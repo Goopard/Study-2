@@ -1,0 +1,8 @@
+"""
+Similar files finder GUI entrypoint.
+"""
+
+from supertool.sff_app import run_similar_files_finder_app
+
+if __name__ == '__main__':
+    run_similar_files_finder_app()

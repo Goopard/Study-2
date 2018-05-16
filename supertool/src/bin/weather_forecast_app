@@ -1,0 +1,8 @@
+"""
+Weather GUI entrypoint.
+"""
+
+from supertool.weather_app import run_weather_app
+
+if __name__ == '__main__':
+    run_weather_app()
