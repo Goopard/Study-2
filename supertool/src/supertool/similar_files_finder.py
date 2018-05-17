@@ -5,6 +5,25 @@ This module contains functions used to find similar files in some directory.
 import os
 
 
+class FileWithHash:
+    """
+    This class is used store the files with their hashes.
+    """
+    def __init__(self, file):
+        """Constructor of the class File, counts the hash of the file.
+
+        :param file: File.
+        :type file: os.DirEntry.
+        """
+        self.path = file.path
+        self.name = file.name
+        try:
+            with open(file.path, 'r') as file_contents:
+                self.hash = file_contents.read().__hash__()
+        except UnicodeDecodeError:
+            self.hash = None
+
+
 def files_finder(directory):
     """This function finds all the files in the given directory (and all subdirectories) and returns them as a list of
     os.DirEntry objects.
@@ -17,28 +36,10 @@ def files_finder(directory):
     files = []
     for file in os.scandir(directory):
         if file.is_file():
-            files.append(file)
+            files.append(FileWithHash(file))
         if file.is_dir():
             files += files_finder(file.path)
     return files
-
-
-def is_similar(path1, path2):
-    """This functions checks if the two files given as absolute paths have the same contents.
-
-    :param path1: Path to the first file.
-    :type path1: str.
-    :param path2: Path to the second file.
-    :type path2: str.
-    :return: bool.
-    """
-    if not (os.path.exists(path1) and os.path.exists(path2)):
-        raise FileNotFoundError('arguments of the function should be two existing files.')
-    with open(path1, 'r') as file1:
-        with open(path2, 'r') as file2:
-            contents1 = file1.read()
-            contents2 = file2.read()
-            return contents1 == contents2
 
 
 def similar_files_chains(directory):
@@ -55,12 +56,12 @@ def similar_files_chains(directory):
     buffer = []
     for file in files:
         for chain in buffer:
-            if is_similar(file, chain[0]):
+            if file.hash == chain[0].hash:
                 chain.append(file)
                 break
         else:
             buffer.append([file])
-    file_chains = [chain for chain in buffer if len(chain) > 1]
+    file_chains = [chain for chain in buffer if len(chain) > 1 and chain[0].hash]
     return file_chains
 
 
@@ -71,7 +72,7 @@ def similar_files_finder(directory):
     :type directory: str.
     :return: None.
     """
-    print('Looking for similar files in directory: {}'.format(directory))
+    print('Looking for similar files in directory: {}'.format(os.path.abspath(directory)))
     file_chains = similar_files_chains(directory)
     if not len(file_chains):
         print('No similar files found.')
@@ -79,4 +80,3 @@ def similar_files_finder(directory):
         print('These {} files have similar contents: '.format(len(chain)))
         for file in chain:
             print('   ', os.path.relpath(file.path, directory))
-
