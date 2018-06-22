@@ -1,7 +1,7 @@
 from mrjob.job import MRJob
 
 
-class MRWordFrequencyCount(MRJob):
+class TestJob(MRJob):
 
     def mapper(self, _, line):
         if len(line) > 0:
@@ -19,4 +19,4 @@ class MRWordFrequencyCount(MRJob):
 
 if __name__ == '__main__':
     a = [1, 2, 3]
-    MRWordFrequencyCount.run()
+    TestJob.run()
