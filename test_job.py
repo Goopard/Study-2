@@ -4,7 +4,11 @@ from mrjob.job import MRJob
 class MRWordFrequencyCount(MRJob):
 
     def mapper(self, _, line):
-        max_word = sorted([word for word in line.split()], key=len)[len(line.split()) - 1]
+        if len(line) > 0:
+            words = sorted(line.split(), key=len)
+            max_word = words[len(words) - 1]
+        else:
+            max_word = ''
         yield None, max_word
 
     def reducer(self, key, values):
@@ -14,4 +18,5 @@ class MRWordFrequencyCount(MRJob):
 
 
 if __name__ == '__main__':
+    a = [1, 2, 3]
     MRWordFrequencyCount.run()
